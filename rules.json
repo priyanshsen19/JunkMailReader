@@ -4,9 +4,10 @@
     {
       "conditionsPredicate": "All",
       "conditions": [
-        { "field": "From", "predicate": "contains", "value": "tickets@bookmyshow.email" }
+        { "field": "From", "predicate": "contains", "value": "recommendations@discover.pinterest.com" },
+        { "field": "Subject", "predicate": "contains", "value": "your taste is next level" }
       ],
-      "actions": [{ "type": "mark_as_read" }]
+      "actions": [{ "type": "mark_as_unread" }]
     },
     {
       "conditionsPredicate": "All",
