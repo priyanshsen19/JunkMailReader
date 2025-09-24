@@ -1,3 +1,4 @@
+import sys, os; sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 import pytest
 from rules_engine import matches_condition, rule_matches
 
