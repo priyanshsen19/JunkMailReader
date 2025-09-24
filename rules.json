@@ -1,0 +1,21 @@
+{
+  "rulesPredicate": "Any",
+  "rules": [
+    {
+      "conditionsPredicate": "All",
+      "conditions": [
+        { "field": "From", "predicate": "contains", "value": "tickets@bookmyshow.email" }
+      ],
+      "actions": [{ "type": "mark_as_read" }]
+    },
+    {
+      "conditionsPredicate": "All",
+      "conditions": [
+        { "field": "labels", "predicate": "contains", "value": "CATEGORY_PROMOTIONS" }
+      ],
+      "actions": [
+        { "type": "move_to_label", "label": "PromotionsFiltered" }
+      ]
+    }
+  ]
+}
