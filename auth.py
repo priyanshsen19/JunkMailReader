@@ -8,6 +8,7 @@ SCOPES = ["https://www.googleapis.com/auth/gmail.modify"]
 TOKEN_PATH = "token.json"
 CREDENTIALS_PATH = "credentials.json"
 
+# initialize gmail service
 def get_gmail_service():
     creds = None
     if os.path.exists(TOKEN_PATH):

@@ -2,10 +2,12 @@ import json, time
 from db import init_db, fetch_all_emails
 from auth import get_gmail_service
 
+# to load the rules from json
 def load_rules(path="rules.json"):
     with open(path, "r") as f:
         return json.load(f)
 
+#to filter data based on the rule
 def matches_condition(email, cond):
     field = cond.get("field")
     predicate = cond.get("predicate", "").lower()
@@ -29,12 +31,14 @@ def matches_condition(email, cond):
         return str(actual).lower() != str(value).lower()
     return False
 
+# fetch all the emails with matching rule
 def rule_matches(email, rule):
     conds = rule.get("conditions", [])
     pred = rule.get("conditionsPredicate", "All").lower()
     results = [matches_condition(email, c) for c in conds]
     return all(results) if pred == "all" else any(results)
 
+# to fetch the label id
 def ensure_label(service, label_name):
     labels = service.users().labels().list(userId="me").execute().get("labels", [])
     for l in labels:
@@ -44,6 +48,7 @@ def ensure_label(service, label_name):
     created = service.users().labels().create(userId="me", body=body).execute()
     return created.get("id")
 
+# to apply action of the rule
 def apply_action(service, email_id, action):
     t = action.get("type")
     if t == "mark_as_read":
@@ -66,6 +71,7 @@ def apply_action(service, email_id, action):
     else:
         print(f"⚠ Unknown action type: {t}")
 
+# rule engine service
 def apply_rules(path="rules.json"):
     rules = load_rules(path).get("rules", [])
     service = get_gmail_service()

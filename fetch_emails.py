@@ -3,13 +3,14 @@ from auth import get_gmail_service
 from db import init_db, upsert_email
 from utils import parse_internal_date, header_value
 
+#fetch the mails based on sender or with size
 def fetch_messages(service, max_results=100, sender=None):
     query = ""
     if sender:
         query = f"from:{sender}"
     results = service.users().messages().list(userId="me", q=query, maxResults=max_results).execute()
     return results.get("messages", [])
-
+# to store in the db
 def fetch_and_store(max_results=100, sender=None):
     service = get_gmail_service()
     conn = init_db()
